@@ -31,6 +31,7 @@
     <!-- boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <title>Administrador</title>
 </head>
 <body class="admin">
@@ -41,42 +42,78 @@
         <a href="#" class="logo"> <i class="fas fa-paw"></i> shop </a>
 
         <nav class="navbar">
-            <a href="#home">Inicio</a>
-            <a href="#about">Acerca</a>
+            <a href="#citas_admin">Citas</a>
+            <!--
             <a href="#citas">Citas</a>
             <a href="#shop">Tienda</a>
             <a href="#services">Servicios</a>
-            <a href="#contact">Contacto</a>
+            <a href="#contact">Contacto</a>-->
         </nav>
 
         <div class="icons">
             <div class="fas fa-bars" id="menu-btn"></div>
-            <div class="fas fa-sign-out-alt" id="logout-btn"></div>
+            <div class="fas fa-sign-out-alt" id="logout"></div>
         </div>
 
     </header>
 
     <!-- home section -->
     <section class="home_admin">
-        <div class="home_admin_info">
-            <h1>
-                <i class='bx bx-spreadsheet'></i>
-                Información
-            </h1>
-        </div>
         <div class="home_admin_cit">
             <h1>
                 <i class='bx bx-calendar'></i>    
-                Citas
+                Citas Del Dia
                 <span>
 
                 </span>
             </h1>
             <div class="cit_container">
-                
+                <div class="list-name-cit">
+                    <h3 class="cit_name_title">Horario</h3>
+                    <h3 class="cit_name_title">Cliente</h3>
+                    <h3 class="cit_name_title">Correo</h3>
+                    <h3 class="cit_name_title">Telefono</h3>
+                </div>
+                <div class="list-cit-today"></div>
+                <nav id="paginationCit">
+                </nav>
+                <input type="hidden" name="currentpagetoday" id="currentpagetoday" value="1"> 
             </div>
         </div>
     </section>
+
+    <section class="citas_admin" id="citas_admin">
+        <div class="citas_admin_list">
+            <div class="list_info">
+                <h1>
+                    <i class='bx bx-spreadsheet'></i>
+                    Citas
+                </h1>
+                <button id="add_Cit">
+                    <i class='bx bx-plus'></i>
+                    Agregar</button>
+            </div>
+            <div class="list-cit">
+                <div class="list-cit-names">
+                    <h3 class="cit_name_title">Fecha</h3>
+                    <h3 class="cit_name_title">Horario</h3>
+                    <h3 class="cit_name_title">Estado</h3>
+                    <h3 class="cit_name_title">Opciones</h3>
+                </div>
+                <div class="list-cit-list"></div>
+                <nav id="pagination">
+                </nav>
+                <input type="hidden" name="currentpage" id="currentpage" value="1">
+            </div>
+        </div>
+    </section>
+
+
+    <script src="./includes/js/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script type="module" src="./includes/js/admin.js"></script>
+
+    <?php include_once "./Pages/addCitas.php" ?>
 
 </body>
 </html>

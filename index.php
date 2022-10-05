@@ -82,6 +82,6 @@
 
     <script src="./includes/js/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <script src="./includes/js/script.js"></script>
+    <script type="module" src="./includes/js/login.js"></script>
 </body>
 </html>

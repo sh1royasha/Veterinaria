@@ -33,6 +33,9 @@ html::-webkit-scrollbar-thumb {
   border-radius: 5rem;
 }
 
+body{
+  padding: 0!important;
+}
 
 section {
   padding: 5rem 9%;
@@ -302,10 +305,6 @@ section {
   height: 12rem;
 }
 
-.about {
-  
-}
-
 .about .image {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 40rem;
@@ -498,11 +497,11 @@ section {
 .services .box-container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(30rem, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-template-columns: repeat(2,1fr);
   gap: 1.5rem;
+  background: #fff;
+  padding: 2rem;
 }
-
 .services .box-container .box {
   background: #eee;
   padding: 3rem;
@@ -808,6 +807,7 @@ h1#year{
   outline: 2px solid #eee;
   height: 100%;
   align-items: center;
+  border-radius: 15px;
 }
 .calendar__last-days{
   color: #666;
@@ -858,6 +858,7 @@ h1#year{
       height: 100%;
       width: 100%;
       cursor: pointer;
+      border-radius: 15px;
     }
 
     .btn-day-today{
@@ -945,6 +946,92 @@ h1#year{
       font-size: 25px;
     }
 
+    .modal_body{
+      padding: 2rem;
+    }
+
+    .modal_body .user{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .modal_body .user_info{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #eee;
+      border: 1px solid rgb(219, 229, 230);
+    }
+    .modal_body .user_info_item{
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid rgb(219, 229, 230);
+    padding: 1rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: auto;
+    word-wrap: break-word;
+    color: #130f40;
+    font-weight: 600;
+    }
+    .modal_body .user_info_item:last-child{
+      border: 0;
+    }
+    .modal_body .user_info_item i{
+      font-size: 2rem;
+    }
+
+    .modal_body .user_info_item h3,
+    .modal_body .user_info_item span{
+      font-size: 1.5rem;
+    }
+
+    .modal_body .user_cit{
+      background: #eee;
+      border-radius: 12px;
+    }
+
+    .modal_body .user_cit h1{
+      border-bottom: 4px solid #fff;
+    }
+
+    .modal_body .user_cit_name{
+      display: grid;
+      grid-template-columns: 65% 35%;
+      margin: 10px 0;
+    }
+
+    .modal_body .user_cit_list{
+      display: grid;
+      grid-template-columns: 65% 35%;
+    }
+
+    .modal_body .user_cit_list span{
+      font-size: 1.5rem;
+    }
+
+    .modal_body .user_cit_name h3{
+      font-size: 1.5rem;
+    }
+
+    .modal .addCit_title,
+    .modal .addCit_btn{
+      color: #130f40;
+    }
+
+    .modal .addcitFrom{
+      padding: 2rem;
+    }
+
+
+    .modal_user{
+      width: 700px!important;
+    }
+
+    
+
 /* ADMIN */
 body.admin{
   background: #eee;
@@ -955,17 +1042,15 @@ section.home_admin{
   height: 100vh;
   display: grid;
   gap: 10px;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 1fr;
 }
 
-.home_admin_info,
 .home_admin_cit{
   padding: 1rem;
   background: #fff;
   border-radius: 12px;
 }
 
-.home_admin_info h1,
 .home_admin_cit h1{
   font-size: 2rem;
   text-transform: uppercase;
@@ -973,4 +1058,188 @@ section.home_admin{
   align-items: center;
   gap: 5px;
   border-bottom: 3px solid #eee;
+}
+
+section .citas_admin_list{
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  height: 100%;
+}
+
+.list_info{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+    border-bottom: 2px solid #eee;
+}
+
+.list_info h1,
+.list_info button{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #130f40;
+  font-weight: bolder;
+  font-size: 2rem;
+}
+
+.list_info button{
+  background: #4d84e2;
+  color: #fff;
+  border-radius: 12px;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.list-cit-list{
+  min-height: 310px;
+}
+
+.list-cit-item{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  background: #eee;
+  padding: 1rem;
+}
+
+.list-cit-item span{
+  font-size: 1.5rem;
+  word-break:break-all;
+}
+
+.list-cit h3{
+  font-size: 2rem;
+  text-align: center;
+}
+
+.cit_all{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
+  margin: 10px;
+  padding: 1rem;
+  background-color: #eee;
+}
+
+.list-cit-names{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.list-cit-names{
+  background: #4d84e2;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  color: #fff;
+  padding: 1rem;
+}
+
+.cit_name_title{
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.cit_all_info{
+  font-size: 1.4rem;
+}
+
+.cit_all_btn{
+  background: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.modal_header{
+  border-bottom: 3px solid #eee;
+}
+
+.addcitFor{
+  padding: 2rem;
+}
+
+.addCit_body{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+  gap: 3rem;
+}
+
+.addcitFrom button{
+  padding: 1rem;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.modal_item{
+  display: flex;
+  flex-direction: column;
+}
+
+.modal_item label{
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.modal_item input{
+  margin-top: 10px;
+  border-bottom: 4px solid #eee;
+  padding: 1rem;
+}
+
+/* PAGINATION */
+.pagination-list{
+  padding: 1rem;
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+
+.page-item a{
+  padding: 0.5rem 1rem;
+  font-size: 1.3rem;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  cursor: pointer;
+}
+
+.page-item.active a{
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.page-item a:hover{
+  color: #0056b3;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.disabled {
+  pointer-events:none; 
+  opacity:0.6;         
+}
+
+.list-name-cit{
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  justify-items: center;
+  background: #4d84e2;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  color: #fff;
+  margin: 15px 0 10px;
 }

@@ -4,7 +4,7 @@ class Database
     private $dbServer = 'localhost';
     private $dbUser = 'root';
     private $dbPassword = '';
-    private $dbName = 'veterinaria';
+    private $dbName = 'datevet';
     protected $conn;
 
     public function __construct()

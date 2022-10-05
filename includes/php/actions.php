@@ -58,4 +58,109 @@
 
     }
 
+    if($action == 'show_Citas'){
+        $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
+        $limit = 5;
+        $start = ($page - 1) * $limit;
+
+        $citas = $obj->getRows('citas',$start, $limit);
+        if (!empty($citas)) {
+            $citaslist = $citas;
+        } else {
+            $citaslist = [];
+        }
+        $total = $obj->getCount('citas');
+        $citasArr = ['count' => $total, 'citas' => $citaslist];
+        echo json_encode($citasArr);
+    }
+
+    if($action == 'addCit'){
+        $fecha = $_POST['cit_date'];
+        $horaIni = $_POST['cit_time_start'];
+        $horaEnd = $_POST['cit_time_end'];
+
+        $cita = [
+            'dateCit' => $fecha,
+            'timeStart' => $horaIni,
+            'timeEnd' => $horaEnd 
+        ];
+
+        $addCit = $obj->addCit($cita,'citas');
+        if(isset($addCit)){
+            echo json_encode($cita);
+        }
+    }
+
+    /* MOSTRAR CITAS DEL DIA - ADMIN */
+    if($action == 'show_Citas_Today'){
+        $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
+        $limit = 5;
+        $start = ($page - 1) * $limit;
+
+        $fecha = $_REQUEST['day_today'];
+        $citas = $obj->datesDis('registros','citdat',$fecha,$start, $limit);
+        if (!empty($citas)) {
+            $citaslist = $citas;
+        } else {
+            $citaslist = [];
+        }
+        $total = $obj->getCountCit('registros','citdat',$fecha);
+        $citasArr = ['count' => $total, 'registros' => $citaslist];
+        echo json_encode($citasArr);
+        /*
+        if(!empty($citas)){
+            echo json_encode($citas);
+        }else{
+            echo "no hay citas disponibles para este dia";
+        }*/
+    }
+
+    if($action == 'profile'){
+        $user = $_REQUEST['user'];
+        $informatio = $obj->records('usuario','email',$user);
+        echo json_encode($informatio);
+    }
+
+    if($action == 'save_Citas'){
+        $fecha = $_REQUEST['date'];
+        $horaIni = $_REQUEST['timeStart'];
+        $horaFin = $_REQUEST['timeEnd'];
+        $name = $_REQUEST['name'];
+        $email = $_REQUEST['email'];
+        $phone = $_REQUEST['telefono'];
+        $id = $_REQUEST['id'];
+        $available = false;
+
+        $cita = [
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'citdat' => $fecha,
+            'timeStart' => $horaIni,
+            'timeEnd' => $horaFin
+        ];
+
+        $citupdate = [
+            'available' => $available
+        ];
+
+        $addCit = $obj->addCit($cita,'registros');
+        if(isset($addCit)){
+            $upCit = $obj->update($citupdate,$id,'citas');
+            echo json_encode($cita);
+        }
+
+    }
+
+    if($action == 'profileCit'){
+        $user = $_REQUEST['user'];
+        $date = $_REQUEST['date'];
+        $citas = $obj->datesUse('registros','email',$user,'citdat',$date);
+        if(!empty($citas)){
+            echo json_encode($citas);
+        }else{
+            echo "Aun no tienes citas";
+        }
+    }
+
 ?>

@@ -12,16 +12,11 @@
     }else{
         header('Location: ./index.php');
     }
-    /*
-    $id =$_SESSION['id'];
-    */
+
     $user= $_SESSION['usuario'];
     $rol = $_SESSION['rol'];
     $phone = $_SESSION['phone'];
     $email = $_SESSION['email'];
-    $separador = " ";
-    $inicial = explode($separador, $user);
-    $firstname = $inicial[0];
     
 ?>
 
@@ -41,6 +36,7 @@
     <!-- custom css file link  -->
     <link rel="stylesheet" href="./includes/css/style.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 </head>
 <body>
     
@@ -61,26 +57,10 @@
 
     <div class="icons">
         <div class="fas fa-bars" id="menu-btn"></div>
-        <div class="fas fa-user" id="login-btn"></div>
+        <div class="fas fa-user" id="user-btn"></div>
         <div class="fas fa-sign-out-alt" id="logout"></div>
     </div>
 
-    <!--
-    <form action="" class="login-form">
-        <h3>sign in</h3>
-        <input type="email" name="" placeholder="enter your email" id="" class="box">
-        <input type="password" name="" placeholder="enter your password" id="" class="box">
-        <div class="remember">
-            <input type="checkbox" name="" id="remember-me">
-            <label for="remember-me">remember me</label>
-        </div>
-        <input type="submit" value="sign in" class="btn">
-        <div class="links">
-            <a href="#">forget password</a>
-            <a href="#">sign up</a>
-        </div>
-    </form>
-    -->
 </header>
 
 <!-- header section ends -->
@@ -94,35 +74,10 @@
         <a href="#" class="btn">Agenda tu cita aqui!</a>
     </div>
 
-    <!--
-    <img src="image/bottom_wave.png" class="wave" alt="">
--->
-
 </section>
 
 <!-- home section ends -->
 
-<!-- about section starts  
-
-<section class="about" id="about">
-
-    
-    <div class="image">
-        <img src="image/about_img.png" alt="">
-    </div>
-    
-    
-    <div class="content">
-        <h3>premium <span>pet food</span> manufacturer</h3>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum sint, dolore perspiciatis iure consequuntur eligendi quaerat vitae shaikh anas.</p>
-        <a href="#" class="btn">read more</a>
-    </div>
-
-
-
-</section>
--->
-<!-- about section ends -->
 
 <section class="citas" id="citas">
 
@@ -134,27 +89,7 @@
                 <h1 id="month" class="month"></h1>
                 
                 <h1 id="year"></h1>
-            </div>
-            <!--
-            <div class="calendar__prev__next">
-                <div class="calendar__prev" id="prev-month">
-                    <button>
-                        <i class="fas fa-angle-left"></i>
-                        Anterior
-                    </button>
-                </div>
-                <div class="calendar__next" id="next-month">
-                    <button>
-                        Siguiente
-                        <i class="fas fa-angle-right"></i>
-                    </button>
-                </div>
-            </div>
--->
-            
-            <!--
-            <div class="calendar__year" id="year"></div> -->
-            
+            </div>          
         </div>
     
         <div class="calendar__week" id="days">
@@ -194,7 +129,24 @@
 
     <h1 class="heading"> Nuestros <span> Servicios </span> </h1>
 
-    <div class="box-container" id="services-container"></div>
+    <div class="box-container" id="services-container">
+        <div class="box">
+            <i class="fas fa-dog"></i>
+            <h3>Atención Medica</h3>
+        </div>
+        <div class="box">
+            <i class="fas fa-cat"></i>
+            <h3>Vacunación</h3>
+        </div>
+        <div class="box">
+            <i class="fas fa-bath"></i>
+            <h3>Hospitalización</h3>
+        </div>
+        <div class="box">
+            <i class="fas fa-drumstick-bite"></i>
+            <h3>Campañas de Esterilización</h3>
+        </div>
+    </div>
 
 </section>
 
@@ -222,29 +174,14 @@
 
 </section>
 
-<!--
-<section class="footer">
-
-    <img src="image/top_wave.png" alt="">
-
-    <div class="share">
-        <a href="#" class="btn"> <i class="fab fa-facebook-f"></i> facebook </a>
-        <a href="#" class="btn"> <i class="fab fa-twitter"></i> twitter </a>
-        <a href="#" class="btn"> <i class="fab fa-instagram"></i> instagram </a>
-        <a href="#" class="btn"> <i class="fab fa-linkedin"></i> linkedin </a>
-        <a href="#" class="btn"> <i class="fab fa-pinterest"></i> pinterest </a>
-    </div>
-
-    <div class="credit"> created by <span> mr. web designer </span> | all rights reserved! </div>
-
-</section>
--->
-
 <?php include_once "./Pages/citas.php" ?>
+<?php include_once "./Pages/profile.php" ?>
 
 
 <script src="./includes/js/jquery.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
 <!-- custom js file link  -->
 <script src="./includes/js/script.js"></script>
 
