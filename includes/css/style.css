@@ -1060,7 +1060,9 @@ section.home_admin{
   border-bottom: 3px solid #eee;
 }
 
-section .citas_admin_list{
+section .citas_admin_list,
+section .Productos_admin_list,
+section .Usuarios_admin_list{
   background: #fff;
   padding: 2rem;
   border-radius: 12px;
@@ -1242,4 +1244,86 @@ section .citas_admin_list{
   border-top-right-radius: 12px;
   color: #fff;
   margin: 15px 0 10px;
+}
+
+.list-cit-today-empty{
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.list-cit-today-empty h3{
+  font-size: 3rem;;
+}
+
+#modal_container_product .modal{
+  width: 380px;
+}
+
+.addProduct_body{
+  display: flex;
+  flex-direction: column;
+}
+
+.addProduct_body .modal_item{
+  padding: 2rem 2rem 0;
+}
+
+.addProduct_body .modal_item input{
+  margin-top: 10px;
+  border: 4px solid #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #eee;
+}
+.addProduct_body .modal_item input.error,
+.addProduct_body .modal_item .item-label-file.error{
+  border-color: red;
+}
+
+.addProduct_body .modal_item .item-label{
+  text-align: left;
+  margin-left: 5px;
+}
+
+.addProduct_body .modal_item .item-file{
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.addProduct_body .modal_item .item-label-file{
+  margin-top: 10px;
+    border: 4px solid #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #eee;
+}
+
+.addProduct_body .modal_item .item-label-file i{
+  font-size: 2.5rem;
+}
+
+.addProduct_body .modal-item .item-file + .item-label-file{
+  font-size: 1.25em;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addProductFrom button{
+  margin: 20px;
+  padding: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
 }

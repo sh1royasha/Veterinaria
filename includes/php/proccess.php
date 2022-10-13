@@ -32,6 +32,30 @@
             }              
         }
 
+        public function addother($data,$tableName){
+            
+            if (!empty($data)) {
+                $fileds = $placholders = [];
+                foreach ($data as $field => $value) {
+                    $fileds[] = $field;
+                    $placholders[] = ":{$field}";
+                }
+            }
+
+            $sql = "INSERT INTO {$tableName} (" . implode(',', $fileds) . ") VALUES (" . implode(',', $placholders) . ")";
+            $stmt = $this->conn->prepare($sql);
+            try {
+                $this->conn->beginTransaction();
+                $stmt->execute($data);
+                $lastInsertedId = $this->conn->lastInsertId();
+                $this->conn->commit();
+                return $lastInsertedId;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                $this->conn->rollback();
+            }            
+        }
+
         public function addCit($data,$tableName){
             
             if (!empty($data)) {
@@ -110,7 +134,7 @@
                 $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
                 $allowedExtn = ["jpg", "png", "gif", "jpeg"];
                 if (in_array($fileExtension, $allowedExtn)) {
-                    $uploadFileDir = $_SERVER["DOCUMENT_ROOT"]. '/NEWPROYECT/assets/uploads/';
+                    $uploadFileDir = $_SERVER['DOCUMENT_ROOT'] . 'PETSHOP/assets/uploads/';
                     $destFilePath = $uploadFileDir . $newFileName;
                     if (move_uploaded_file($fileTempPath, $destFilePath)) {
                         return $newFileName;

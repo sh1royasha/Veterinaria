@@ -1,19 +1,32 @@
-import {notyf,logOut,showCitasTodayAdmin,paginationUse,addCitas,showCitas,paginationUseCit} from './main.js'
+import {getProductsAdmin,inputfile,notyf,logOut,showCitasTodayAdmin,paginationUse,addCitas,showCitas,paginationUseCit} from './main.js'
 $(document).ready(function(){
     /* MODAL VARIABLES */
     let modal = document.getElementById('modal_container')
-    let modalclose = document.getElementById('close')
-    let modalOpen = document.getElementById('add_Cit')
+    let modalcloseCit = document.getElementById('close')
+    let modalOpenCit = document.getElementById('add_Cit')
     let addCitForm = document.querySelector('.addcitFrom')
-
+    let modalOpenProduct = document.getElementById('add_Prod');
+    let modalcloseProduct = document.getElementById('close_Pro')
+    let modalProduct = document.getElementById('modal_container_product');
+    let addProductFrom = document.getElementById('addProductFrom')
     /* MODAL ABRIR Y CERRAR*/
-    modalOpen.addEventListener('click', () =>{
+    modalOpenCit.addEventListener('click', () =>{
         modal.classList.add('show');
     })
 
-    modalclose.addEventListener('click',()=>{
+    modalcloseCit.addEventListener('click',()=>{
         modal.classList.remove('show');
         addCitForm.reset();
+    })
+
+    modalOpenProduct.addEventListener('click',()=>{
+        modalProduct.classList.add('show');
+    })
+
+    
+    modalcloseProduct.addEventListener('click',()=>{
+        modalProduct.classList.remove('show');
+        addProductFrom.reset();
     })
 
     notyf
@@ -24,6 +37,8 @@ $(document).ready(function(){
     paginationUse();
     showCitasTodayAdmin();
     paginationUseCit();
+    inputfile();
+    getProductsAdmin();
     
     /* fecha del dia actual */
     // date_today

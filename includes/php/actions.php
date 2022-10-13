@@ -107,12 +107,6 @@
         $total = $obj->getCountCit('registros','citdat',$fecha);
         $citasArr = ['count' => $total, 'registros' => $citaslist];
         echo json_encode($citasArr);
-        /*
-        if(!empty($citas)){
-            echo json_encode($citas);
-        }else{
-            echo "no hay citas disponibles para este dia";
-        }*/
     }
 
     if($action == 'profile'){
@@ -161,6 +155,21 @@
         }else{
             echo "Aun no tienes citas";
         }
+    }
+
+    if($action == 'addProduct'){
+        $name = $_POST['product_name'];
+        $price = $_POST['product_price'];
+        $photo = $_FILES['file'];
+        $image = '';
+            $image = $obj->uploadPhoto($photo);
+            $product = [
+                'name' => $name,
+                'price' => $price,
+                'photo' => $image,
+            ];
+        $add = $obj->addother($product,'producto');
+        echo json_encode($add);
     }
 
 ?>

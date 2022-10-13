@@ -43,11 +43,8 @@
 
         <nav class="navbar">
             <a href="#citas_admin">Citas</a>
-            <!--
-            <a href="#citas">Citas</a>
-            <a href="#shop">Tienda</a>
-            <a href="#services">Servicios</a>
-            <a href="#contact">Contacto</a>-->
+            <a href="#Productos_admin">Productos</a>
+            <a href="#Usuarios_admin">Usuarios</a>
         </nav>
 
         <div class="icons">
@@ -108,12 +105,64 @@
         </div>
     </section>
 
+    <section class="Productos_admin" id="Productos_admin">
+        <div class="Productos_admin_list">
+            <div class="list_info">
+                <h1>
+                    <i class='bx bx-spreadsheet'></i>
+                    Productos
+                </h1>
+                <button id="add_Prod">
+                    <i class='bx bx-plus'></i>
+                    Agregar</button>
+            </div>
+            <!--
+            <div class="list-cit">
+                <div class="list-cit-names">
+                    <h3 class="cit_name_title">Fecha</h3>
+                    <h3 class="cit_name_title">Horario</h3>
+                    <h3 class="cit_name_title">Estado</h3>
+                    <h3 class="cit_name_title">Opciones</h3>
+                </div>
+                <div class="list-cit-list"></div>
+                <nav id="pagination">
+                </nav>
+                <input type="hidden" name="currentpage" id="currentpage" value="1">
+            </div>-->
+        </div>
+    </section>
+
+    <section class="Usuarios_admin" id="Usuarios_admin">
+        <div class="Usuarios_admin_list">
+            <div class="list_info">
+                <h1>
+                    <i class='bx bx-spreadsheet'></i>
+                    Usuarios
+                </h1>
+            </div>
+            <!--
+            <div class="list-cit">
+                <div class="list-cit-names">
+                    <h3 class="cit_name_title">Fecha</h3>
+                    <h3 class="cit_name_title">Horario</h3>
+                    <h3 class="cit_name_title">Estado</h3>
+                    <h3 class="cit_name_title">Opciones</h3>
+                </div>
+                <div class="list-cit-list"></div>
+                <nav id="pagination">
+                </nav>
+                <input type="hidden" name="currentpage" id="currentpage" value="1">
+            </div>-->
+        </div>
+    </section>
+
 
     <script src="./includes/js/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script type="module" src="./includes/js/admin.js"></script>
 
     <?php include_once "./Pages/addCitas.php" ?>
+    <?php include_once "./Pages/AddProduct.php" ?>
 
 </body>
 </html>

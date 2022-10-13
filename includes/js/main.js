@@ -379,15 +379,14 @@ function showCitasTodayAdmin(){
     /* FECHA ACTUAL */
     let date = new Date();
     let date_today = String(date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + date.getDate()).padStart(2, '0');  
-    let list_citas = document.querySelector('.list-cit');
+    let list_citas = document.querySelector('.list-cit-today');
     $.ajax({
         url: "./includes/php/actions.php",
         type: "GET",
         dataType: "json",
         data:{ page: pageno, action: "show_Citas_Today", day_today: date_today},
         success: function(response){
-            console.log(response)
-            if(response.registros){
+                if(response.registros){
                 let citaslist = "";
                 $.each(response.registros, function (index, citas) {
                     citaslist += getcitasTodayrow(citas);
@@ -400,28 +399,15 @@ function showCitasTodayAdmin(){
                 const currentpage = $("#currentpagetoday").val();
                 paginationCit(totalpages, currentpage);
             }
-            /*
-            list_citas.classList.add('full')
-            response.forEach(element => {
-                let horaIni = element.timeStart.split(':');
-                let horaFin = element.timeEnd.split(':');
-                list_citas.innerHTML += `
-                <div class="list-cit-item">
-                    <span>
-                        ${horaIni[0]}:${horaIni[1]} - ${horaFin[0]}:${horaFin[1]}  
-                    </span>
-                    <span>
-                        ${element.name}
-                    </span>
-                    <span>
-                        ${element.email}
-                    </span>
-                    <span>
-                        ${element.phone}  
-                    </span>
+
+           if(Object.entries(response.registros).length === 0){
+            list_citas.innerHTML = `
+                <div class="list-cit-today-empty">
+                <h3>NO HAY CITAS DISPONIBLES PARA HOY</h3>
                 </div>
-                `
-            });*/
+            `
+           }
+
         },
         error: function(response){
             list_citas.innerHTML = `
@@ -455,5 +441,66 @@ function getcitasTodayrow(citas){
     return citasRow;
 }
 
+function getProductsAdmin(){
+    $(document).on("submit","#addProductFrom",function(e){
+        e.preventDefault();
+        let name = document.getElementById('product_name');
+        let price = document.getElementById('product_price');
+        let img = document.getElementById('file');
+        let fichero = document.getElementById('fichero');
+        let status= true;
+
+        if(name.value === ''){
+            status = false;
+            name.classList.add('error')
+            notyf.error("falta rellenar el campo nombre");
+        }else{
+            name.classList.remove('error')
+        }
+
+        if(price.value === ''){
+            status = false;
+            price.classList.add('error')
+            notyf.error("falta rellenar el campo precio");
+        }else{
+            price.classList.remove('error')
+        }
+
+        if(img.value === ''){
+            status = false;
+            fichero.classList.add('error')
+            notyf.error("falta subir la imagen");
+        }else{
+            fichero.classList.remove('error')
+        }
+
+        if(status){
+            $.ajax({
+                url: "./includes/php/actions.php",
+                type: "POST",
+                dataType: "json",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    console.log(response)
+                },
+                error: function(response){
+                    console.log(response)
+                }
+            })
+        }
+
+    })
+}
+
+ /* Funcion agrega nombre del archivo a input */
+ function inputfile(){
+    /* NOMBRE INPUT FILE */
+    document.getElementById('file').onchange = function () {
+      document.getElementById('fichero').innerHTML = document.getElementById('file').files[0].name;
+    }
+  }
+
 export {
-    register,login,switchLogReg,notyf,logOut,addCitas,showCitas,paginationUse,showCitasTodayAdmin,paginationUseCit}
+    getProductsAdmin,register,login,switchLogReg,notyf,logOut,addCitas,showCitas,paginationUse,showCitasTodayAdmin,paginationUseCit,inputfile}
