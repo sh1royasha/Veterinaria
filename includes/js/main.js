@@ -253,6 +253,7 @@ function showCitas(){
                 let totalpages = Math.ceil(parseInt(totalPlayers) / 5);
                 const currentpage = $("#currentpage").val();
                 pagination(totalpages, currentpage);
+                delHor()
             }
         },
         error: function(response){
@@ -441,6 +442,59 @@ function getcitasTodayrow(citas){
     return citasRow;
 }
 
+function showProductsAdmin(){
+    let list_product = document.querySelector('.list-product');
+    $.ajax({
+        url: "./includes/php/actions.php",
+        type: "GET",
+        dataType: "json",
+        data: {action: "show_products_admin"},
+        success: function(response){
+            response.forEach(image =>{
+                list_product.innerHTML +=`
+                <div class="box">
+                <div class="image">
+                <img src="./assets/uploads/${image.photo}" alt="">
+                </div>
+                <div class="content">
+                    <h3>${image.name}</h3>
+                    <div class="amount">$ ${image.price}</div>
+                </div>
+            </div>
+                `
+            })
+        },
+        error: function(response){
+            console.log(response)
+        }
+    })
+}
+
+function showUsersAdmin(){
+    let list_users = document.querySelector('.list_users');
+    $.ajax({
+        url: "./includes/php/actions.php",
+        type: "GET",
+        dataType: "json",
+        data: {action: "show_users_admin"},
+        success: function(response){
+            response.forEach(image =>{
+                list_users.innerHTML +=`
+                    <div class="list_users_list">
+                        <span>${image.name}</span>
+                        <span>${image.email}</span>
+                        <span>${image.phone}</span>
+                        <span>${image.rol}</span>
+                    </div>       
+                `
+            })
+        },
+        error: function(response){
+            console.log(response)
+        }
+    })
+}
+
 function getProductsAdmin(){
     $(document).on("submit","#addProductFrom",function(e){
         e.preventDefault();
@@ -484,6 +538,7 @@ function getProductsAdmin(){
                 contentType: false,
                 success: function(response){
                     console.log(response)
+                    
                 },
                 error: function(response){
                     console.log(response)
@@ -502,5 +557,45 @@ function getProductsAdmin(){
     }
   }
 
+  function delHor(){
+    let btns = document.querySelectorAll('.cit_all_btn');
+    btns.forEach(del=>{
+        del.addEventListener('click',function(){
+            Swal.fire({
+                title: 'Deseas eliminar este Horario?',
+                showCancelButton: true,
+                confirmButtonText: 'Si',
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                   deleteCit(del.value) 
+                   
+                } 
+              })
+        })
+    })
+  }
+
+  function deleteCit(indice){
+    $.ajax({
+            url: "./includes/php/actions.php",
+            type: "GET",
+            dataType: "json",
+            data:{action: "delcitas", indice: indice},
+        success: function(response){
+            console.log(response);
+            showCitas()
+        },
+        error: function(response){
+            console.log(response)
+        }
+    })
+  }
+
+
 export {
-    getProductsAdmin,register,login,switchLogReg,notyf,logOut,addCitas,showCitas,paginationUse,showCitasTodayAdmin,paginationUseCit,inputfile}
+    showUsersAdmin,showProductsAdmin,getProductsAdmin,
+    register,login,switchLogReg,notyf,logOut,addCitas,
+    showCitas,paginationUse,showCitasTodayAdmin,
+    paginationUseCit,inputfile
+}

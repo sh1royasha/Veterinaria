@@ -39,7 +39,7 @@
     <!-- header section starts  -->
     <header class="header">
 
-        <a href="#" class="logo"> <i class="fas fa-paw"></i> shop </a>
+        <a href="#" class="logo"> <i class="fas fa-paw"></i> Datevet </a>
 
         <nav class="navbar">
             <a href="#citas_admin">Citas</a>
@@ -109,26 +109,15 @@
         <div class="Productos_admin_list">
             <div class="list_info">
                 <h1>
-                    <i class='bx bx-spreadsheet'></i>
+                    <i class='bx bx-package'></i>
                     Productos
                 </h1>
                 <button id="add_Prod">
                     <i class='bx bx-plus'></i>
                     Agregar</button>
             </div>
-            <!--
-            <div class="list-cit">
-                <div class="list-cit-names">
-                    <h3 class="cit_name_title">Fecha</h3>
-                    <h3 class="cit_name_title">Horario</h3>
-                    <h3 class="cit_name_title">Estado</h3>
-                    <h3 class="cit_name_title">Opciones</h3>
-                </div>
-                <div class="list-cit-list"></div>
-                <nav id="pagination">
-                </nav>
-                <input type="hidden" name="currentpage" id="currentpage" value="1">
-            </div>-->
+            <div class="list-product">
+            </div>
         </div>
     </section>
 
@@ -136,23 +125,21 @@
         <div class="Usuarios_admin_list">
             <div class="list_info">
                 <h1>
-                    <i class='bx bx-spreadsheet'></i>
+                    <i class='bx bx-user'></i>
                     Usuarios
                 </h1>
             </div>
-            <!--
-            <div class="list-cit">
-                <div class="list-cit-names">
-                    <h3 class="cit_name_title">Fecha</h3>
-                    <h3 class="cit_name_title">Horario</h3>
-                    <h3 class="cit_name_title">Estado</h3>
-                    <h3 class="cit_name_title">Opciones</h3>
+            <div class="list-users">
+                <div class="list-users-name">
+                    <h3 class="cit_name_title">Nombre</h3>
+                    <h3 class="cit_name_title">Correo</h3>
+                    <h3 class="cit_name_title">Telefono</h3>
+                    <h3 class="cit_name_title">Rol</h3>
                 </div>
-                <div class="list-cit-list"></div>
-                <nav id="pagination">
-                </nav>
-                <input type="hidden" name="currentpage" id="currentpage" value="1">
-            </div>-->
+                <div class="list_users">
+                    
+                </div>
+            </div>
         </div>
     </section>
 
@@ -160,6 +147,8 @@
     <script src="./includes/js/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script type="module" src="./includes/js/admin.js"></script>
+    
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <?php include_once "./Pages/addCitas.php" ?>
     <?php include_once "./Pages/AddProduct.php" ?>

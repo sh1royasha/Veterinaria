@@ -44,7 +44,7 @@
 
 <header class="header">
 
-    <a href="#" class="logo"> <i class="fas fa-paw"></i> shop </a>
+    <a href="#" class="logo"> <i class="fas fa-paw"></i> Datevet </a>
 
     <nav class="navbar">
         <a href="#home">Inicio</a>
@@ -71,7 +71,7 @@
 
     <div class="content">
         <h3> <span>hola</span> bienvenido a datavet </h3>
-        <a href="#" class="btn">Agenda tu cita aqui!</a>
+        <a href="#citas" class="btn">Agenda tu cita aqui!</a>
     </div>
 
 </section>
@@ -183,7 +183,7 @@
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
 <!-- custom js file link  -->
-<script src="./includes/js/script.js"></script>
+<script src="./includes/js/script.js"></script> 
 
 </body>
 </html>

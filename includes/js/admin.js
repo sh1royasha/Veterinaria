@@ -1,4 +1,8 @@
-import {getProductsAdmin,inputfile,notyf,logOut,showCitasTodayAdmin,paginationUse,addCitas,showCitas,paginationUseCit} from './main.js'
+import {showProductsAdmin,getProductsAdmin,inputfile,
+    notyf,logOut,showCitasTodayAdmin,paginationUse,
+    addCitas,showCitas,paginationUseCit,showUsersAdmin,
+} from './main.js'
+
 $(document).ready(function(){
     /* MODAL VARIABLES */
     let modal = document.getElementById('modal_container')
@@ -29,6 +33,13 @@ $(document).ready(function(){
         addProductFrom.reset();
     })
 
+    
+    let navbar = document.querySelector('.header .navbar');
+
+    document.querySelector('#menu-btn').onclick = () =>{
+        navbar.classList.toggle('active');    
+    }
+
     notyf
 
     logOut()
@@ -39,7 +50,8 @@ $(document).ready(function(){
     paginationUseCit();
     inputfile();
     getProductsAdmin();
-    
+    showProductsAdmin();
+    showUsersAdmin();
     /* fecha del dia actual */
     // date_today
 })

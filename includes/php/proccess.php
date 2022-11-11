@@ -56,6 +56,9 @@
             }            
         }
 
+        
+        
+
         public function addCit($data,$tableName){
             
             if (!empty($data)) {
@@ -121,6 +124,17 @@
             }
             return $results;
         }
+
+        public function delete($tableName,$id,$indicevalue){
+            $sql = "DELETE FROM {$tableName}  WHERE {$id}=:{$id}";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':{$id}' => $indicevalue]);
+            if ($stmt->rowCount() > 0) {
+                return 1;
+            } else {
+                return 0;
+                }
+        }
         
 
         public function uploadPhoto($file){
@@ -134,7 +148,7 @@
                 $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
                 $allowedExtn = ["jpg", "png", "gif", "jpeg"];
                 if (in_array($fileExtension, $allowedExtn)) {
-                    $uploadFileDir = $_SERVER['DOCUMENT_ROOT'] . 'PETSHOP/assets/uploads/';
+                    $uploadFileDir = $_SERVER['DOCUMENT_ROOT'] . '/petshop/assets/uploads/';
                     $destFilePath = $uploadFileDir . $newFileName;
                     if (move_uploaded_file($fileTempPath, $destFilePath)) {
                         return $newFileName;
@@ -190,20 +204,36 @@
             return $results;
         }
 
-        public function deleteRow($tableName,$id,$url){
+        public function mostrar($tableName){
+            $sql = "SELECT * FROM {$tableName}";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                $results = [];
+            }
+            return $results;
+        }
+
+        
+
+        public function deleteRow($tableName,$id)
+        {
             $sql = "DELETE FROM {$tableName}  WHERE id=:id";
             $stmt = $this->conn->prepare($sql);
             try {
                 $stmt->execute([':id' => $id]);
                 if ($stmt->rowCount() > 0) {
-                    unlink($_SERVER["DOCUMENT_ROOT"]. '/NEWPROYECT/assets/uploads/'.$url);
                     return true;
-                    }
-                } catch (PDOException $e) {
+                }
+            } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
                 return false;
-                }
+            }
+    
         }
+
 
         public function getCount($tableName){
             $sql = "SELECT count(*) as pcount FROM {$tableName}";

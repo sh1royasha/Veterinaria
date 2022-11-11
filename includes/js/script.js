@@ -1,65 +1,8 @@
 $(document).ready(function(){
 
-    const path = window.location.pathname;
     const mostrarCitas = document.querySelector('.dates');
     const cit_day = document.querySelector('.modal_header_date');
 
-    if( path == "/petshop/index.php"){
-    
-        const sign_in_btn = document.querySelector("#sign-in-btn");
-        const sign_up_btn = document.querySelector("#sign-up-btn");
-        const container = document.querySelector(".container");
-
-        sign_up_btn.addEventListener("click", () => {
-            container.classList.add("sign-up-mode");
-        });
-
-        sign_in_btn.addEventListener("click", () => {
-            container.classList.remove("sign-up-mode");
-        });
-
-        register();
-        login();
-        
-
-        }else if(path == "/petshop/admin.php"){
-        
-            logOut();
-            let modal = document.getElementById("modal_container");
-            let close = document.getElementById('close')
-            let citOp = document.getElementById("add_Cit")
-            let citDates = document.querySelector('.addcitFrom')
-
-            /*fehca actual */
-            let date = new Date();
-            let today_date = String(date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + date.getDate()).padStart(2, '0');
-            showCitasToday(today_date);
-
-            citOp.addEventListener('click', ()=>{
-                modal.classList.add('show');
-            })
-
-            close.addEventListener('click', ()=>{
-                modal.classList.remove('show')	
-                citDates.reset()
-            })
-
-            showCitas();
-
-            addCitas();
-
-            // pagination
-            $(document).on("click", "ul.pagination li a", function (e) {
-                e.preventDefault();
-                var $this = $(this);
-                const pagenum = $this.data("page");
-                $("#currentpage").val(pagenum);
-                showCitas();
-                $this.parent().siblings().removeClass("active");
-                $this.parent().addClass("active");
-            });
-            
-        }else{
             profileCit();
             profile();
         const modal = document.getElementById("modal_container");
@@ -242,206 +185,43 @@ $(document).ready(function(){
 
     calendar()
 
-/*
-    let loginForm = document.querySelector('.header .login-form');
-
-    document.querySelector('#user-btn').onclick = () =>{
-        loginForm.classList.toggle('active');
-        navbar.classList.remove('active');
-    }
 
     let navbar = document.querySelector('.header .navbar');
 
     document.querySelector('#menu-btn').onclick = () =>{
         navbar.classList.toggle('active');    
-        loginForm.classList.remove('active');
-    }
-*/
-
-    const images = [
-        {
-            nombre: "product_01"
-        },
-        {
-            nombre: "product_02"
-        },
-        {
-            nombre: "product_03"
-        }
-    ];
-
-    let shop = document.querySelector("#shop-container");
-
-    images.forEach(image =>{
-        shop.innerHTML +=`
-            <div class="box">
-                <div class="image">
-                    <img src="./assets/image/${image.nombre}.jpg" alt="">
-                </div>
-                <div class="content">
-                    <h3>air-dried food</h3>
-                    <div class="amount"> $15.00 - $30.00 </div>
-                </div>
-            </div>
-        `
-    })
-
     }
 
-    
-    // Create an instance of Notyf
-    let notyf = new Notyf({
-            duration: 1000,
-            position: {
-                x: 'right',
-                y: 'top',
+
+    function showProducts(){
+        let list_products = document.getElementById('shop-container');
+        $.ajax({
+            url: "./includes/php/actions.php",
+            type: "GET",
+            dataType: "json",
+            data: {action: "show_products"},
+            success: function(response){
+                response.forEach(image =>{
+                    list_products.innerHTML +=`
+                    <div class="box">
+                        <div class="image">
+                        <img src="./assets/uploads/${image.photo}" alt="">
+                        </div>
+                        <div class="content">
+                            <h3>${image.name}</h3>
+                            <div class="amount">$ ${image.price}</div>
+                        </div>
+                    </div>
+                    `
+                })
             },
-            types: [
-                {
-                type: 'error',
-                background: 'indianred',
-                duration: 2000
-                },
-                {
-                type: 'success',
-                background: 'mediumseagreen',
-                duration: 2000
-                }
-            ]
-    });
-
-    /* Funcion para logear */
-    function login(){
-        $(document).on("submit","#sign-in-form",function (e){
-            e.preventDefault();
-            let status = true;
-            let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
-            
-            let sing = document.querySelector("#sign-in-form")
-            let sing_inputs = sing.querySelectorAll(".input-field")
-            let sing_up_email = document.querySelector("#sing_up_email").value;
-            let sing_up_password = document.querySelector("#sing_up_password").value;
-
-            if(sing_up_email === ''){
-                status = false;
-                sing_inputs[0].classList.add('error');
-                notyf.error('Falta llenar el campo correo');
-            }else{
-                sing_inputs[0].classList.remove('error');
+            error: function(response){
+                console.log(response)
             }
-
-            if(sing_up_password === ''){
-                status = false;
-                sing_inputs[1].classList.add('error');
-                notyf.error('Falta llenar el campo contraseña');
-            }else{
-                sing_inputs[1].classList.remove('error');
-            }
-
-            if(status){
-                $.ajax({
-                    url: "includes/php/actions.php",
-                    type: "POST",
-                    dataType: "json",
-                    data: new FormData(this),
-                    processData: false,
-                    contentType: false,
-                    success: function(response){
-                        let infoName = response['name'];
-                        let infoPhone = response['phone'];
-                        let infoEmail = response['email'];
-                        let infoRol = response['rol'];
-                        $.ajax({
-                            url:'includes/php/sessiones.php',
-                            type: "POST",
-                            data:{
-                                nombre: infoName,
-                                telefono: infoPhone,
-                                email: infoEmail,
-                                rol: infoRol
-                            },            
-                        }).done(function(result){
-                            notyf.success("Usuario Correcto. Ingresando....")
-                            setTimeout(function(){
-                                sing.reset();
-                                location.reload(true);
-                            }, 500);
-                        })
-                    },
-                    error: function(response){    
-                        notyf.error(response.responseText);
-                    }
-                   })
-            }
-        })
+        })  
     }
 
-    /* Funcion para Registrar */
-    function register(){
-        $(document).on("submit", "#sign-up-form",function (e){
-            e.preventDefault();
-            let status = true;
-            let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
-            
-            let sing = document.querySelector("#sign-up-form")
-            let sing_inputs = sing.querySelectorAll(".input-field")
-            let sing_name = document.querySelector("#sing_name").value;
-            let sing_email = document.querySelector("#sing_email").value;
-            let sing_password = document.querySelector("#sing_password").value;
-            let sing_phone = document.querySelector("#sing_phone").value;
-            
-            if(sing_name === '' || sing_name.length<5){
-                status = false;
-                sing_inputs[0].classList.add('error');
-                notyf.error('Falta el campo nombre o el formato esta incorrecto');
-            }else{
-                sing_inputs[0].classList.remove('error');
-            }
-
-            if(sing_email === '' || !regexEmail.test(sing_email)){
-                sing_inputs[1].classList.add('error');
-                status = false;
-                notyf.error('Falta el campo email o el formato esta incorrecto');
-            }else{
-                sing_inputs[1].classList.remove('error');
-            }
-
-            if(sing_password === '' || sing_password.length<5){
-                sing_inputs[2].classList.add('error');
-                notyf.error('Falta el campo password o el formato esta incorrecto');
-                status = false;
-            }else{
-                sing_inputs[2].classList.remove('error');
-            }
-
-            if(sing_phone.length != 10 | sing_phone.length > 10){
-                sing_inputs[3].classList.add('error');
-                notyf.error('Falta el campo telefono o el formato esta incorrecto');
-                status = false;
-            }else{
-                sing_inputs[3].classList.remove('error');
-            }
-
-            if(status){
-                $.ajax({
-                    url: "includes/php/actions.php",
-                    type: "POST",
-                    dataType: "json",
-                    data: new FormData(this),
-                    processData: false,
-                    contentType: false,
-                    success: function(response){
-                        notyf.success("Usuarios creado Exitosamente");
-                        sing.reset();
-                    },
-                    error: function(response){    
-                        notyf.error(response.responseText);
-                        }
-                   })
-            }
-          
-        })
-    }
+    showProducts();
 
     /* Funcion para Cerrar Sesión */
     function logOut(){
@@ -548,70 +328,6 @@ $(document).ready(function(){
         })
     }
 
-    function addCitas(){
-        $(document).on("submit", '.addcitFor' ,function (e){
-            e.preventDefault();
-            let citDates = document.querySelector('.addcitFor')
-            let cit_date = document.getElementById('cit_date').value;
-            let time_start = document.getElementById('time_start').value;
-            let time_end = document.getElementById('time_end').value;
-            let status = true;
-            let modal = document.getElementById("modal_container");
-
-            if(cit_date === ''){
-                status = false;
-                notyf.error('Falta llenar el campo fecha');
-            }
-
-            if(time_start === ''){
-                status = false;
-                notyf.error('Falta llenar el campo Hora Inicial');
-            }
-
-            if(time_end === ''){
-                status = false;
-                notyf.error('Falta llenar el campo Hora Final');
-            }
-
-            if(status){
-                $.ajax({
-                    url: "includes/php/actions.php",
-                    type: "POST",
-                    dataType: "json",
-                    data: new FormData(this),
-                    processData: false,
-                    contentType: false,
-                    success: function(response){
-                        notyf.success("Cita Creada Exitosamente");
-                        modal.classList.remove('show')
-                        citDates.reset();
-                        showCitas();
-                    },
-                    error: function(response){    
-                        notyf.error(response.responseText);
-                    }
-                })
-            }
-            
-        })
-    }
-
-    function showCitasToday(day){
-        let cit_container = document.querySelector('.cit_container');
-        $.ajax({
-            url: "./includes/php/actions.php",
-            type: "GET",
-            dataType: "json",
-            data:{  action: "show_Citas_Today", day: day},
-            success: function(response){
-                console.log(response);
-            },
-            error: function(response){
-                console.log(response);
-            }
-        })
-    }
-
     function saveCit(citDate,citId){
         let cit_dat = citDate[0];
         let cit_time_start = citDate[1];
@@ -713,5 +429,27 @@ $(document).ready(function(){
         })
     }
 
+
+    let days_name = document.querySelectorAll('.calendar__day');
+    console.log(days_name[0])
+    if(screen.width >= 320 || screen.width <=480){
+        days_name[0].textContent = "L";
+        days_name[1].textContent = "M";
+        days_name[2].textContent = "M";
+        days_name[3].textContent = "J";
+        days_name[4].textContent = "V";
+        days_name[5].textContent = "S";
+        days_name[6].textContent = "D";
+    }
+
+    if(screen.width >= 1000){
+        days_name[0].textContent = "LUNES";
+        days_name[1].textContent = "MARTES";
+        days_name[2].textContent = "MIERCOLES";
+        days_name[3].textContent = "JUEVES";
+        days_name[4].textContent = "VIERNES";
+        days_name[5].textContent = "SABADO";
+        days_name[6].textContent = "DOMINGO";
+    }
     logOut();
 })

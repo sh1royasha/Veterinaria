@@ -172,4 +172,21 @@
         echo json_encode($add);
     }
 
+    if($action == 'show_products_admin' || $action == 'show_products' ){
+        $showProduct = $obj->mostrar('producto');
+        echo json_encode($showProduct);
+    }
+
+    if($action == 'show_users_admin'){
+        $showUsers = $obj->mostrar('usuario');
+        echo json_encode($showUsers);
+    }
+
+    if($action == 'delcitas'){
+        $indice = $_REQUEST['indice'];
+        $citas = $obj->deleteRow('citas',$indice);
+        echo json_encode($citas);
+        exit();
+    }
+
 ?>
